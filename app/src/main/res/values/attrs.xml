@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="HoopView">
+
+        <attr name="theme_color" format="color|reference"/>
+        <attr name="direction">
+            <enum name="left" value="1"/>
+            <enum name="right" value="2"/>
+        </attr>
+        <attr name="text" format="string" />
+        <attr name="count" format="string" />
+        <attr name="button_count" format="integer" />
+        <attr name="init_number" format="integer" />
+        <attr name="multiple" format="integer" />
+    </declare-styleable>
+
+
+</resources>
