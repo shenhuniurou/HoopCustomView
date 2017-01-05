@@ -5,8 +5,4 @@
 
     <dimen name="hoop_text_size">14sp</dimen>
     <dimen name="hoop_count_text_size">12sp</dimen>
-    <dimen name="hoop_margin">15dp</dimen>
-    <dimen name="hoop_big_circle_radius">70dp</dimen>
-    <dimen name="hoop_small_circle_radius">50dp</dimen>
-    <dimen name="hoop_view_height">200dp</dimen>
 </resources>
