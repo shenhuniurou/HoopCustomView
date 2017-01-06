@@ -35,6 +35,7 @@ public class HoopView extends View {
     private float mBigRadius;//大圆的半径
     private float mSmallRadius;//小圆的半径
     private int margin;//按钮之间的间距
+    private int countMargin;//金币数与大圆的间距
 
     //三个按钮的圆心
     private PointF circleOne, circleTwo, circleThree;
@@ -119,6 +120,7 @@ public class HoopView extends View {
         mSmallRadius = context.getResources().getDimension(R.dimen.hoop_small_circle_radius);
         margin = (int) context.getResources().getDimension(R.dimen.hoop_margin);
         mHeight = (int) context.getResources().getDimension(R.dimen.hoop_view_height);
+        countMargin = (int) context.getResources().getDimension(R.dimen.hoop_count_margin);
 
         mDatas = new String[] {"1", "10", "100"};
         // 计算背景框改变的长度，默认是三个按钮
@@ -163,7 +165,7 @@ public class HoopView extends View {
      * @param canvas
      */
     private void drawCountText(Canvas canvas) {
-        canvas.translate(0, -25);
+        canvas.translate(0, -countMargin);
         //计算文字的宽度
         float textWidth = mCountTextPaint.measureText(mCount, 0, mCount.length());
         canvas.drawText(mCount, 0, mCount.length(), (2 * mBigRadius - textWidth - 35) / 2, 0.2f, mCountTextPaint);
