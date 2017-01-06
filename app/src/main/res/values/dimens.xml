@@ -9,4 +9,5 @@
     <dimen name="hoop_big_circle_radius">70dp</dimen>
     <dimen name="hoop_small_circle_radius">50dp</dimen>
     <dimen name="hoop_view_height">200dp</dimen>
+    <dimen name="hoop_count_margin">25dp</dimen>
 </resources>
