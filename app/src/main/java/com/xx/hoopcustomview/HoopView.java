@@ -31,14 +31,13 @@ public class HoopView extends View {
     private Paint mBgPaint;//大圆画笔
     private TextPaint mTextPaint;
     private TextPaint mCountTextPaint;
-    private PointF circle;//大圆的圆心
     private float mBigRadius;//大圆的半径
     private float mSmallRadius;//小圆的半径
     private int margin;//按钮之间的间距
     private int countMargin;//金币数与大圆的间距
 
-    //三个按钮的圆心
-    private PointF circleOne, circleTwo, circleThree;
+    //大圆的圆心和三个按钮的圆心
+    private PointF circle, circleOne, circleTwo, circleThree;
 
     private int mState = STATE_NORMAL;//当前展开收缩的状态
     private boolean mIsRun = false;//是否正在展开或收缩
@@ -61,9 +60,11 @@ public class HoopView extends View {
     private int mChangeWidth;//背景框改变的长度
     private int mChange;//背景框当前改变的值
 
-    // 大圆圆心
+    // 大圆圆心坐标
     float cx = 0, cy = 0;
+    // 弹框的四个边界点
     float left, right, top, bottom;
+    // 按钮上显示的文字
     String[] mDatas;
 
     OnClickButtonListener listener;
@@ -185,10 +186,10 @@ public class HoopView extends View {
 
 
     /**
-     * 画弹出框展开的过程
+     * 画背景框展开和收缩
      * @param canvas
      */
-    private void drawExpanding(Canvas canvas) {
+    private void drawBackground(Canvas canvas) {
         left = cx - mBigRadius - mChange;
         right = cx + mBigRadius;
         canvas.drawRoundRect(left, top, right, bottom, mBigRadius, mBigRadius, mPopPaint);
@@ -242,66 +243,6 @@ public class HoopView extends View {
 
     }
 
-
-    /**
-     * 画弹出框收缩的过程
-     * @param canvas
-     */
-    private void drawShrinking(Canvas canvas) {
-
-        left = cx - mBigRadius - mChange;
-        right = cx + mBigRadius;
-        canvas.drawRoundRect(left, top, right, bottom, mBigRadius, mBigRadius, mPopPaint);
-        if ((mChange > 0) && (mChange <= 2 * mSmallRadius + margin)) {
-            // 绘制第一个按钮
-            canvas.drawCircle(cx - mChange, cy, mSmallRadius, mBgPaint);
-            // 绘制第一个按钮内的文字
-            canvas.drawText(mDatas[0], cx - (mBigRadius - mSmallRadius) - mChange, cy + 15, mTextPaint);
-        } else if ((mChange > 2 * mSmallRadius + margin) && (mChange <= 4 * mSmallRadius + 2 * margin)) {
-            // 绘制第一个按钮
-            canvas.drawCircle(cx - mBigRadius - mSmallRadius - margin, cy, mSmallRadius, mBgPaint);
-            // 绘制第一个按钮内的文字
-            canvas.drawText(mDatas[0], cx - mBigRadius - mSmallRadius - margin - 16, cy + 15, mTextPaint);
-
-            // 绘制第二个按钮
-            canvas.drawCircle(cx - mChange, cy, mSmallRadius, mBgPaint);
-            // 绘制第二个按钮内的文字
-            canvas.drawText(mDatas[1], cx - mChange - 20, cy + 15, mTextPaint);
-        } else if ((mChange > 4 * mSmallRadius + 2 * margin) && (mChange <= 6 * mSmallRadius + 3 * margin)) {
-            // 绘制第一个按钮
-            canvas.drawCircle(cx - mBigRadius - mSmallRadius - margin, cy, mSmallRadius, mBgPaint);
-            // 绘制第一个按钮内的文字
-            canvas.drawText(mDatas[0], cx - mBigRadius - mSmallRadius - margin - 16, cy + 15, mTextPaint);
-
-            // 绘制第二个按钮
-            canvas.drawCircle(cx - mBigRadius - 3 * mSmallRadius - 2 * margin, cy, mSmallRadius, mBgPaint);
-            // 绘制第二个按钮内的文字
-            canvas.drawText(mDatas[1], cx - mBigRadius - 3 * mSmallRadius - 2 * margin - 25, cy + 15, mTextPaint);
-
-            // 绘制第三个按钮
-            canvas.drawCircle(cx - mChange, cy, mSmallRadius, mBgPaint);
-            // 绘制第三个按钮内的文字
-            canvas.drawText(mDatas[2], cx - mChange - 35, cy + 15, mTextPaint);
-        } else if (mChange > 6 * mSmallRadius + 3 * margin) {
-            // 绘制第一个按钮
-            canvas.drawCircle(cx - mBigRadius - mSmallRadius - margin, cy, mSmallRadius, mBgPaint);
-            // 绘制第一个按钮内的文字
-            canvas.drawText(mDatas[0], cx - mBigRadius - mSmallRadius - margin - 16, cy + 15, mTextPaint);
-
-            // 绘制第二个按钮
-            canvas.drawCircle(cx - mBigRadius - 3 * mSmallRadius - 2 * margin, cy, mSmallRadius, mBgPaint);
-            // 绘制第二个按钮内的文字
-            canvas.drawText(mDatas[1], cx - mBigRadius - 3 * mSmallRadius - 2 * margin - 25, cy + 15, mTextPaint);
-
-            // 绘制第三个按钮
-            canvas.drawCircle(cx - mBigRadius - 5 * mSmallRadius - 3 * margin, cy, mSmallRadius, mBgPaint);
-            // 绘制第三个按钮内的文字
-            canvas.drawText(mDatas[2], cx - mBigRadius - 5 * mSmallRadius - 3 * margin - 34, cy + 15, mTextPaint);
-        }
-        drawCircle(canvas);
-    }
-
-
     @Override protected void onDraw(Canvas canvas) {
         switch (mState) {
             case STATE_NORMAL:
@@ -309,11 +250,11 @@ public class HoopView extends View {
                 break;
             case STATE_SHRINK:
             case STATE_SHRINKING:
-                drawShrinking(canvas);
+                drawBackground(canvas);
                 break;
             case STATE_EXPAND:
             case STATE_EXPANDING:
-                drawExpanding(canvas);
+                drawBackground(canvas);
                 break;
         }
         drawCircleText(canvas);
