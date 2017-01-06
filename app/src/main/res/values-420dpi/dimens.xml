@@ -5,4 +5,5 @@
 
     <dimen name="hoop_text_size">14sp</dimen>
     <dimen name="hoop_count_text_size">12sp</dimen>
+    <dimen name="hoop_count_margin">15dp</dimen>
 </resources>
